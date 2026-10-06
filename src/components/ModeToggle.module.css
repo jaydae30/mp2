@@ -1,0 +1,21 @@
+.toggle {
+  display: inline-flex;
+  border: 2px solid #555;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 12px 0 4px;
+}
+
+.option {
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.active {
+  background: #e50914;
+  color: #fff;
+}

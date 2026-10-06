@@ -1,0 +1,21 @@
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.select,
+.dir {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  font-size: 0.95rem;
+  cursor: pointer;
+}

@@ -1,0 +1,39 @@
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.hint,
+.count,
+.status {
+  margin: 8px 0;
+}
+
+.count {
+  font-weight: 600;
+}
+
+.filter {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px 12px;
+  margin: 12px 0 20px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  font-size: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  margin: 24px 0 12px;
+}

@@ -1,0 +1,50 @@
+.filter {
+  margin: 16px 0 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.clear {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 2px solid #555;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.chip:hover {
+  border-color: #888;
+}
+
+.selected {
+  border-color: #e50914;
+  background: #e50914;
+  color: #fff;
+}

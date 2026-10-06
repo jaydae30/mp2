@@ -1,0 +1,33 @@
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: #1e1e24;
+  color: inherit;
+  cursor: pointer;
+}
+
+.option:hover {
+  border-color: #555;
+}
+
+.selected {
+  border-color: #e50914;
+  background: #2a1a1c;
+}
+
+.logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+}
+
+.name {
+  font-size: 0.85rem;
+  text-align: center;
+}
