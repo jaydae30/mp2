@@ -1,23 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { tmdb } from '../api/tmdb'
+import type { MovieDetails } from '../types/tmdb'
 
-type MovieTest = {
-  id: number
-  title: string
-  overview: string
-}
 
 export default function DetailPage() {
   const { id } = useParams()
-  const [movie, setMovie] = useState<MovieTest | null>(null)
+  const [movie, setMovie] = useState<MovieDetails | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     let ignore = false
 
     tmdb
-      .get<MovieTest>(`/movie/${id}`)
+      .get<MovieDetails>(`/movie/${id}`)
       .then((res) => {
         if (!ignore) setMovie(res.data)
       })

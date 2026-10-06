@@ -1,3 +1,3 @@
 export default function GalleryPage() {
-  return <h1>Gallery</h1>
+  return <h1>Suggestions</h1>
 }
