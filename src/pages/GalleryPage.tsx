@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
 import { tmdb } from '../api/tmdb'
 import { useServices } from '../context/useServices'
 import GenreFilter from '../components/GenreFilter'
 import ModeToggle from '../components/ModeToggle'
 import ActorSearch from '../components/ActorSearch'
+import StatusMessage from '../components/StatusMessage'
 import MovieCard from '../components/MovieCard'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import type {
   Genre,
   GenreListResponse,
@@ -33,6 +34,7 @@ function parseGenreIds(value: string | null): number[] {
 export default function GalleryPage() {
   const { serviceIds } = useServices()
   const [searchParams, setSearchParams] = useSearchParams()
+  const location = useLocation()
 
   
   const mode: GalleryMode = searchParams.get('mode') === 'actor' ? 'actor' : 'genre'
@@ -104,7 +106,7 @@ export default function GalleryPage() {
     }
   }, [shouldFetch, providerParam, genreParam, mode, actorId, requestKey])
 
-  // One helper to change several URL params at once
+  
   function updateParams(changes: Record<string, string | null>) {
     setSearchParams(
       (prev) => {
@@ -153,7 +155,11 @@ export default function GalleryPage() {
 
   const loading = shouldFetch && (result === null || result.key !== requestKey)
   const movies = shouldFetch && !loading && result ? result.movies : []
-  const listState: MovieListState = { ids: movies.map((m) => m.id), from: 'Suggestions' }
+  const listState: MovieListState = {
+     ids: movies.map((m) => m.id),
+     from: 'Suggestions',
+     backTo: `${location.pathname}${location.search}`,
+  }
 
   function emptyMessage() {
     if (mode === 'actor') {
@@ -168,17 +174,19 @@ export default function GalleryPage() {
       <p className={styles.hint}>Movies you can watch right now on your services.</p>
 
       {noServices ? (
-        <p className={styles.status}>
+                <StatusMessage kind="empty">
           You haven't picked any services yet.{' '}
           <Link to="/services">Choose your services</Link> to get suggestions.
-        </p>
+        </StatusMessage>
       ) : (
         <>
           <ModeToggle mode={mode} onChange={changeMode} />
 
-          {mode === 'genre' &&
+            {mode === 'genre' &&
             (genreError ? (
-              <p className={styles.status}>Could not load genres.</p>
+              <StatusMessage kind="error">Could not load genres.</StatusMessage>
+            ) : genres.length === 0 ? (
+              <StatusMessage kind="loading">Loading genres...</StatusMessage>
             ) : (
               <GenreFilter
                 genres={genres}
@@ -201,16 +209,16 @@ export default function GalleryPage() {
             ) : (
               <>
                 <ActorSearch onSelect={selectActor} />
-                <p className={styles.status}>Pick an actor to see their movies on your services.</p>
+                  <StatusMessage kind="empty">Pick an actor to see their movies on your services.</StatusMessage>
               </>
             ))}
 
-          {loading && <p className={styles.status}>Loading suggestions...</p>}
+                    {loading && <StatusMessage kind="loading">Loading suggestions...</StatusMessage>}
           {!loading && result?.error && shouldFetch && (
-            <p className={styles.status}>{result.error}</p>
+            <StatusMessage kind="error">{result.error}</StatusMessage>
           )}
           {shouldFetch && !loading && !result?.error && movies.length === 0 && (
-            <p className={styles.status}>{emptyMessage()}</p>
+            <StatusMessage kind="empty">{emptyMessage()}</StatusMessage>
           )}
 
           <ul className={styles.grid}>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import { tmdb } from '../api/tmdb'
 import { useDebounce } from '../hooks/useDebounce'
 import { sortMovies, isSortKey, type SortDir, type SortKey } from '../utils/sortMovies'
@@ -9,6 +8,8 @@ import MovieListItem from '../components/MovieListItem'
 import type { MovieSummary, PagedResponse } from '../types/tmdb'
 import type { MovieListState } from '../types/navigation'
 import styles from './ListPage.module.css'
+import { useLocation, useSearchParams } from 'react-router-dom'
+import StatusMessage from '../components/StatusMessage'
 
 type FetchResult = {
   query: string
@@ -18,6 +19,7 @@ type FetchResult = {
 
 export default function ListPage() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const location = useLocation()
 
   
   const urlQuery = searchParams.get('q') ?? ''
@@ -45,7 +47,7 @@ export default function ListPage() {
   useEffect(() => {
     const trimmed = debouncedText.trim()
     if (trimmed !== urlQuery) setParam('q', trimmed)
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedText])
 
   const [result, setResult] = useState<FetchResult | null>(null)
@@ -74,7 +76,11 @@ export default function ListPage() {
 
   const loading = result === null || result.query !== urlQuery
   const sorted = !loading && result ? sortMovies(result.movies, sortKey, sortDir) : []
-  const listState: MovieListState = { ids: sorted.map((m) => m.id), from: 'Search' }
+  const listState: MovieListState = {
+    ids: sorted.map((m) => m.id),
+    from: 'Search',
+    backTo: `${location.pathname}${location.search}`,
+  }
 
   return (
     <section className={styles.page}>
@@ -95,10 +101,10 @@ export default function ListPage() {
         {urlQuery ? `Results for "${urlQuery}"` : 'Popular movies'}
       </p>
 
-      {loading && <p className={styles.status}>Loading...</p>}
-      {!loading && result?.error && <p className={styles.status}>{result.error}</p>}
+      {loading && <StatusMessage kind="loading">Loading...</StatusMessage>}
+      {!loading && result?.error && <StatusMessage kind="error">{result.error}</StatusMessage>}
       {!loading && !result?.error && sorted.length === 0 && (
-        <p className={styles.status}>No movies found for "{urlQuery}".</p>
+        <StatusMessage kind="empty">No movies found for "{urlQuery}".</StatusMessage>
       )}
 
       <ul className={styles.list}>

@@ -78,3 +78,8 @@ export type MovieProvidersResponse = {
   id: number
   results: Record<string, CountryProviders> 
 }
+export type MovieDetailsWithProviders = MovieDetails & {
+  'watch/providers'?: {
+    results: Record<string, CountryProviders>
+  }
+}

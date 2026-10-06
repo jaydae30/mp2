@@ -3,6 +3,7 @@ import { tmdb, IMAGE_BASE } from '../api/tmdb'
 import { useDebounce } from '../hooks/useDebounce'
 import type { PagedResponse, Person } from '../types/tmdb'
 import styles from './ActorSearch.module.css'
+import StatusMessage from './StatusMessage'
 
 type Props = {
   onSelect: (person: Person) => void
@@ -57,10 +58,12 @@ export default function ActorSearch({ onSelect }: Props) {
         onChange={(e) => setText(e.target.value)}
       />
 
-      {loading && <p className={styles.status}>Searching...</p>}
-      {!loading && result?.error && query && <p className={styles.status}>{result.error}</p>}
+      {loading && <StatusMessage kind="loading">Searching...</StatusMessage>}
+      {!loading && result?.error && query && (
+        <StatusMessage kind="error">{result.error}</StatusMessage>
+      )}
       {!loading && query && !result?.error && people.length === 0 && (
-        <p className={styles.status}>No actors found for "{query}".</p>
+        <StatusMessage kind="empty">No actors found for "{query}".</StatusMessage>
       )}
 
       <ul className={styles.results}>

@@ -1,0 +1,74 @@
+.providers {
+  margin-top: 28px;
+}
+
+.heading {
+  font-size: 1.2rem;
+  margin: 0 0 8px;
+}
+
+.yes {
+  color: #46d369;
+  font-weight: 600;
+}
+
+.no {
+  opacity: 0.75;
+}
+
+.group {
+  margin-top: 16px;
+}
+
+.groupLabel {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  margin: 0 0 8px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.provider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background: #1e1e24;
+  font-size: 0.9rem;
+}
+
+.mine {
+  border-color: #46d369;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #46d369;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.credit {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}

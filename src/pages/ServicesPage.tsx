@@ -4,6 +4,7 @@ import { useServices } from '../context/useServices'
 import ServiceOption from '../components/ServiceOption'
 import type { ProviderListResponse, WatchProvider } from '../types/tmdb'
 import styles from './ServicesPage.module.css'
+import StatusMessage from '../components/StatusMessage'
 
 export default function ServicesPage() {
   const { serviceIds, toggleService } = useServices()
@@ -83,10 +84,10 @@ export default function ServicesPage() {
         onChange={(e) => setFilter(e.target.value)}
       />
 
-      {loading && <p className={styles.status}>Loading services...</p>}
-      {error && <p className={styles.status}>{error}</p>}
+      {loading && <StatusMessage kind="loading">Loading services...</StatusMessage>}
+      {error && <StatusMessage kind="error">{error}</StatusMessage>}
       {!loading && !error && visible.length === 0 && (
-        <p className={styles.status}>No services match "{filter}".</p>
+        <StatusMessage kind="empty">No services match "{filter}".</StatusMessage>
       )}
 
       {selectedVisible.length > 0 && (
