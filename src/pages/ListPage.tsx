@@ -24,7 +24,7 @@ export default function ListPage() {
   
   const urlQuery = searchParams.get('q') ?? ''
   const sortParam = searchParams.get('sort')
-  const sortKey: SortKey = isSortKey(sortParam) ? sortParam : 'popularity'
+  const sortKey: SortKey = isSortKey(sortParam) ? sortParam : 'relevance'
   const sortDir: SortDir = searchParams.get('dir') === 'asc' ? 'asc' : 'desc'
 
   
@@ -75,7 +75,7 @@ export default function ListPage() {
   }, [urlQuery])
 
   const loading = result === null || result.query !== urlQuery
-  const sorted = !loading && result ? sortMovies(result.movies, sortKey, sortDir) : []
+  const sorted = !loading && result ? sortMovies(result.movies, sortKey, sortDir, urlQuery) : []
   const listState: MovieListState = {
     ids: sorted.map((m) => m.id),
     from: 'Search',
