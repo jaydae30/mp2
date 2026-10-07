@@ -59,13 +59,17 @@ export default function WatchProviders({ providers, myServiceIds }: Props) {
               <h3 className={styles.groupLabel}>{g.label}</h3>
               <ul className={styles.list}>
                 {g.list.map((p) => (
-                  <li
-                    key={p.provider_id}
-                    className={isMine(p) ? `${styles.provider} ${styles.mine}` : styles.provider}
-                  >
-                    <img src={`${IMAGE_BASE}w92${p.logo_path}`} alt="" className={styles.logo} />
-                    <span>{p.provider_name}</span>
-                    {isMine(p) && <span className={styles.badge}>Yours</span>}
+                  <li key={p.provider_id}>
+                    <a
+                      href={providers?.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={isMine(p) ? `${styles.provider} ${styles.mine}` : styles.provider}
+                    >
+                      <img src={`${IMAGE_BASE}w92${p.logo_path}`} alt="" className={styles.logo} />
+                      <span>{p.provider_name}</span>
+                      {isMine(p) && <span className={styles.badge}>Yours</span>}
+                    </a>
                   </li>
                 ))}
               </ul>

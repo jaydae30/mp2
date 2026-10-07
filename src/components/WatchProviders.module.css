@@ -46,6 +46,12 @@
   border: 2px solid transparent;
   background: #1e1e24;
   font-size: 0.9rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.provider:hover {
+  filter: brightness(1.25);
 }
 
 .mine {
